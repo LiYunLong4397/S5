@@ -1,0 +1,8 @@
+<launch>
+<rosparam command="load" file="$(find patchwork)/config/params.yaml" />
+<!-- <node name="$(anon ros_kitti)" pkg="patchwork" type="ros_kitti" output="screen"> -->
+<node name="$(anon ros_kitti)" pkg="patchwork" type="ros_kitti">
+    <!-- <remap from="/patchwork/cloud" to="/kitti/velo/pointcloud"/> -->
+    <remap from="/patchwork/cloud" to="/velodyne_points"/>
+</node>
+</launch>
