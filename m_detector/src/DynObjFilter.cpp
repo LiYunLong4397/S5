@@ -2243,7 +2243,7 @@ void DynObjFilter::LidarPerception(const ros::Publisher & pub_pcl_cluster_)
         // pcl_cluster_ptr->header.stamp = rec->header.stamp;
         // std::cout << "雷达时间：" << rec->header.stamp << std::endl;
          pcl::toROSMsg(*pcl_cluster_ptr, ClusterCloud);
-        ClusterCloud.header.frame_id = "velodyne";
+        ClusterCloud.header.frame_id = frame_id;
         pub_pcl_cluster_.publish(ClusterCloud);
     //有向盒
     std::vector<std::shared_ptr<apollo::perception::Object>> objects;
@@ -2320,7 +2320,7 @@ void DynObjFilter::publish_markers(const double & scan_end_time, const ros::Publ
 
             //矩形框设置
             visualization_msgs::Marker line_strip;
-            line_strip.header.frame_id = "velodyne";//velo_link
+            line_strip.header.frame_id = frame_id;
             line_strip.header.stamp = ros::Time().fromSec(scan_end_time);
             line_strip.ns = "apollo::perception";
             line_strip.type = visualization_msgs::Marker::LINE_STRIP;
@@ -2335,7 +2335,7 @@ void DynObjFilter::publish_markers(const double & scan_end_time, const ros::Publ
 
             //文本设置
             visualization_msgs::Marker marker_txt;
-            marker_txt.header.frame_id = "velodyne";
+            marker_txt.header.frame_id = frame_id;
             marker_txt.header.stamp = ros::Time().fromSec(scan_end_time);
             marker_txt.ns = "apollo::perception";
             marker_txt.type = visualization_msgs::Marker::TEXT_VIEW_FACING;
@@ -2499,7 +2499,7 @@ void DynObjFilter::publish_markers(const double & scan_end_time, const ros::Publ
                         //追踪路径绘制
                         if(my_objects->objects[i]->drops.size() > 0){
                             visualization_msgs::Marker marker_track;
-                            marker_track.header.frame_id = "velodyne";
+                            marker_track.header.frame_id = frame_id;
                             marker_track.header.stamp = ros::Time().fromSec(scan_end_time);
                             marker_track.ns = "apollo::perception";
                             marker_track.type = visualization_msgs::Marker::LINE_STRIP;
